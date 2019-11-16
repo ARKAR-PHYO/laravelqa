@@ -18,31 +18,27 @@
                     <form action="{{ route('questions.store') }}" method="POST">
                         @csrf
                         <div class="form-group">
-                          <label for="question-title">Question Title</label>
-                          <input type="text" name="question-title" id="question-title" class="form-control {{ $errors->has('title')?'is-invalid' : '' }} " placeholder="Question Title">
-
-                          @if ($errors->has('title'))
-                            <div class="invalid-feedback">
-                                <strong>{{ $errors->first('title') }}</strong>
-                            </div>
-                          @endif
-
+                            <label for="question-title" class="col-md-4 col-form-label">Question Title</label>
+                            <input id="question-title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" autocomplete="title" autofocus>
+                            @error('title')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
 
                         <div class="form-group">
-                          <label for="question-body">Explain Your Question</label>
-                          <textarea class="form-control {{ $errors->has('title')?'is-invalid' : '' }} " name="question-body" id="question-body" rows="10"></textarea>
-
-                          @if ($errors->has('body'))
-                            <div class="invalid-feedback">
-                                <strong>{{ $errors->first('body') }}</strong>
-                            </div>
-                          @endif
-
+                            <label for="question-body" class="col-md-4 col-form-label">Explain your questions here</label>
+                            <textarea id="question-body" rows="10" class="form-control @error('body') is-invalid @enderror" name="body" value="{{ old('body') }}" autocomplete="body" autofocus></textarea>
+                            @error('body')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
-
-                        <button type="submit" class="btn btn-outline-secondary btn-lg">Ask this question</button>
-
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-outline-secondary">Submit</button>
+                        </div>
                     </form>
                 </div>
             </div>
