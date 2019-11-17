@@ -41,7 +41,7 @@ class QuestionsController extends Controller
     public function store(AskQuestionRequest $request)
     {
         $request->user()->questions()->create($request->only('title', 'body'));
-        return redirect()->route('questions.index')->with('success', "Your question has been submitted.");
+        return redirect()->route('questions.index')->with('success', "Your question has been SUBMITTED!!");
     }
 
     /**
@@ -77,7 +77,7 @@ class QuestionsController extends Controller
     {
         $question->update($request->only('title', 'body'));
 
-        return redirect()->route('questions.index')->with('success', "Your question has been updated.");
+        return redirect()->route('questions.index')->with('success', "Your question has been UPDATED!!");
     }
 
     /**
@@ -88,6 +88,8 @@ class QuestionsController extends Controller
      */
     public function destroy(Question $question)
     {
-        //
+        $question->delete();
+
+        return redirect()->route('questions.index')->with('success', "Your question has been DELETED!!");
     }
 }
