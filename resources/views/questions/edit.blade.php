@@ -17,7 +17,7 @@
                 <div class="card-body">
                     <form action="{{ route('questions.update', $question->id) }}" method="POST">
                         {{ method_field('PUT') }}
-                        @include('layouts._form', ['buttonText'=> "Update Question"])
+                        @include('questions._form', ['buttonText'=> "Update Question"])
                     </form>
                 </div>
             </div>
