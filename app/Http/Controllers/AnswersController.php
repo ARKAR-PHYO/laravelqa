@@ -50,7 +50,7 @@ class AnswersController extends Controller
                 'body' => 'required',
             ]));
 
-            return redirect()->route('questions.show', $question->slug)->with('success', "Your answer has been saved.");
+            return redirect()->route('questions.show', $question->slug)->with('success', "Your answer has been SAVED!!!");
         }
 
         /**
@@ -59,8 +59,11 @@ class AnswersController extends Controller
         * @param  \App\Answer  $answer
         * @return \Illuminate\Http\Response
         */
-        public function destroy(Answer $answer)
+        public function destroy(Question $question, Answer $answer)
         {
-            //
+            $this->authorize('delete', $answer);
+            $answer->delete();
+
+            return back()->with('success', "Your answer has been REMOVED!!!");
         }
     }
