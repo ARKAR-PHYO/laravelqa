@@ -30,4 +30,9 @@ class Answer extends Model
             $answer->save();
         });
     }
+
+    public function setCreatedDateAttribute()
+    {
+        return $this->created_at->format('d/m/Y');
+    }
 }
