@@ -11,9 +11,23 @@
                 @foreach ($answers as $answer)
                 <div class="media">
                     <div class="d-flex flex-column vote-controls">
-                        <a title="This answer is useful" class="vote-up"> <i class="fas fa-caret-up fa-3x"></i> </a>
-                        <span class="votes-count">1234</span>
-                        <a title="This answer is not useful" class="vote-down off"><i class="fas fa-caret-down fa-3x"></i></a>
+                        {{-- VOTE-UP --}}
+                            <a title="This answer is useful" class="vote-up {{ Auth::guest() ? 'off' : '' }}" onclick="event.preventDefault(); document.getElementById('up-vote-answer-{{ $answer->id }}').submit();"> <i class="fas fa-caret-up fa-3x"></i> </a>
+                            <form id="up-vote-answer-{{ $answer->id }}" action="/answers/{{ $answer->id }}/vote" method="POST" style="display:none;">
+                                @csrf
+                                <input type="hidden" name="vote" value="1">
+                            </form>
+
+                            {{-- VOTE-COUNT --}}
+                            <span class="votes-count">{{ $answer->votes_count }}</span>
+
+                            {{-- VOTE-DOWN --}}
+                            <a title="This answer is not useful" class="vote-down {{ Auth::guest() ? 'off' : '' }}" onclick="event.preventDefault(); document.getElementById('down-vote-answer-{{ $answer->id }}').submit();"><i class="fas fa-caret-down fa-3x"></i></a>
+                            <form id="down-vote-answer-{{ $answer->id }}" action="/answers/{{ $answer->id }}/vote" method="POST" style="display:none;">
+                                @csrf
+                                <input type="hidden" name="vote" value="-1">
+                            </form>
+
                         @can('accept', $answer)
                             <a title="Mark this answer as best answer" class="{{ $answer->status }} mt-2" onclick="event.preventDefault(); document.getElementById('accept-answer-{{ $answer->id }}').submit();"><i class="fas fa-check fa-2x"></i></a>
                             <form id="accept-answer-{{ $answer->id }}" action="{{ route('answers.accept', $answer->id) }}" method="POST" style="display:none;">
