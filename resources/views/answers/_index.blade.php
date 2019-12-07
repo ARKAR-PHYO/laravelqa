@@ -1,3 +1,4 @@
+@if ($answersCount > 0)
 <div class="row mt-5">
     <div class="col-md-12">
         <div class="card">
@@ -32,7 +33,7 @@
                         {{-- VOTE-DOWN END --}}
 
                         @include('shared._accept' , [
-                            'model' => $answer
+                        'model' => $answer
                         ])
                     </div>
 
@@ -63,8 +64,8 @@
                             {{-- AUTHOR-INFO --}}
                             <div class="col-4">
                                 @include('shared._author' , [
-                                    'model' => $answer,
-                                    'lable' => 'answered'
+                                'model' => $answer,
+                                'lable' => 'answered'
                                 ])
                             </div>
                             {{-- AUTHOR-INFO END --}}
@@ -78,3 +79,5 @@
         </div>
     </div>
 </div>
+@endif
+

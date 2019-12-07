@@ -25,6 +25,12 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
        Route::bind('slug', function($slug) {
+        //    *-- Ordering Answer count by decending order method-1 --*
+        //    return question::with(['answers.user', 'answers' => function($query){
+        //        $query->orderBy('votes_count', 'DESC');
+        //    }])->where('slug', $slug)->first() ?? abort(404);
+
+        //*-- Ordering Answer count by decending order method-2 IN QUESTION MODEL --*
            return question::with('answers.user')->where('slug', $slug)->first() ?? abort(404);
        });
 

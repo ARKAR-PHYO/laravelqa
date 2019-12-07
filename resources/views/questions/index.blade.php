@@ -16,7 +16,7 @@
 
                 <div class="card-body">
                     @include('layouts._messages')
-                    @foreach ($questions as $question)
+                    @forelse ($questions as $question)
                     <div class="media">
                         <div class="d-flex flex-column counters">
                             <div class="vote">
@@ -34,15 +34,15 @@
                                 <h3 class="mt-0"> <a href=" {{ $question->url }}">{{ $question->title }} </a> </h3>
                                 <div class="ml-auto">
                                     @can ('update', $question)
-                                        <a href="{{ route('questions.edit', $question->id) }}" class="btn btn-small btn-outline-info">Edit</a>
+                                    <a href="{{ route('questions.edit', $question->id) }}" class="btn btn-small btn-outline-info">Edit</a>
                                     @endcan
 
                                     @can ('delete', $question)
-                                        <form class="form-delete" method="POST" action="{{ route('questions.destroy', $question->id) }}">
-                                            @method('DELETE')
-                                            @csrf
-                                            <button type="submit" class="btn btn-small btn-outline-danger" onclick="return confirm('Are you sure?')">DEL</button>
-                                        </form>
+                                    <form class="form-delete" method="POST" action="{{ route('questions.destroy', $question->id) }}">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button type="submit" class="btn btn-small btn-outline-danger" onclick="return confirm('Are you sure?')">DEL</button>
+                                    </form>
                                     @endcan
                                 </div>
                             </div>
@@ -56,7 +56,11 @@
                         </div>
                     </div>
                     <hr>
-                    @endforeach
+                    @empty
+                    <div class="alert alert-warning" role="alert">
+                        <strong>Sorry</strong> There are no questions available.
+                    </div>
+                    @endforelse
                     <div class="justify-content-center">
 
                         {{ $questions->links() }}
