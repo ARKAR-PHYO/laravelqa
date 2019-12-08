@@ -1,4 +1,6 @@
-@if ($answersCount > 0)
+{{-- @if ($answersCount > 0) --}}
+
+{{-- $answersCount  DIDN'T WORK  //$answersCount ရရင်အအပေါ်က if ကိုဖွင့်လို့ရပီ --}}
 <div class="row mt-5">
     <div class="col-md-12">
         <div class="card">
@@ -9,75 +11,15 @@
                 <hr>
 
                 @include('layouts._messages')
+
                 @foreach ($answers as $answer)
-                <div class="media">
-                    <div class="d-flex flex-column vote-controls">
-                        {{-- VOTE-UP --}}
-                        <a title="This answer is useful" class="vote-up {{ Auth::guest() ? 'off' : '' }}" onclick="event.preventDefault(); document.getElementById('up-vote-answer-{{ $answer->id }}').submit();"> <i class="fas fa-caret-up fa-3x"></i> </a>
-                        <form id="up-vote-answer-{{ $answer->id }}" action="/answers/{{ $answer->id }}/vote" method="POST" style="display:none;">
-                            @csrf
-                            <input type="hidden" name="vote" value="1">
-                        </form>
-                        {{-- VOTE-UP END --}}
-
-                        {{-- VOTE-COUNT --}}
-                        <span class="votes-count">{{ $answer->votes_count }}</span>
-                        {{-- VOTE-COUNT END --}}
-
-                        {{-- VOTE-DOWN --}}
-                        <a title="This answer is not useful" class="vote-down {{ Auth::guest() ? 'off' : '' }}" onclick="event.preventDefault(); document.getElementById('down-vote-answer-{{ $answer->id }}').submit();"><i class="fas fa-caret-down fa-3x"></i></a>
-                        <form id="down-vote-answer-{{ $answer->id }}" action="/answers/{{ $answer->id }}/vote" method="POST" style="display:none;">
-                            @csrf
-                            <input type="hidden" name="vote" value="-1">
-                        </form>
-                        {{-- VOTE-DOWN END --}}
-
-                        @include('shared._accept' , [
-                        'model' => $answer
-                        ])
-                    </div>
-
-                    {{-- MEDIA-BODY --}}
-                    <div class="media-body">
-                        {!! $answer->body_html !!}
-                        <div class="row">
-                            {{-- EDIT, DELETE BUTTON --}}
-                            <div class="col-4">
-                                <div class="ml-auto">
-                                    @can ('update', $answer)
-                                    <a href="{{ route('questions.answers.edit', [$question->id, $answer->id]) }}" class="btn btn-small btn-outline-info">Edit</a>
-                                    @endcan
-
-                                    @can ('delete', $answer)
-                                    <form class="form-delete" method="POST" action="{{ route('questions.answers.destroy', [$question->id, $answer->id]) }}">
-                                        @method('DELETE')
-                                        @csrf
-                                        <button type="submit" class="btn btn-small btn-outline-danger" onclick="return confirm('Are you sure?')">DEL</button>
-                                    </form>
-                                    @endcan
-                                </div>
-                            </div>
-                            {{-- EDIT, DELETE BUTTON END --}}
-
-                            <div class="col-4"></div>
-
-                            {{-- AUTHOR-INFO --}}
-                            <div class="col-4">
-                                @include('shared._author' , [
-                                'model' => $answer,
-                                'lable' => 'answered'
-                                ])
-                            </div>
-                            {{-- AUTHOR-INFO END --}}
-                        </div>
-                    </div>
-                    {{-- MEDIA-BODY END --}}
-                </div>
-                <hr>
+                    @include('answers._answer')
                 @endforeach
             </div>
         </div>
     </div>
 </div>
-@endif
+{{-- @endif --}}
+
+
 
