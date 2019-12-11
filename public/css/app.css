@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);@charset "UTF-8";
 
 /*!
  * Bootstrap v4.3.1 (https://getbootstrap.com/)
@@ -11100,6 +11100,11 @@ a.text-dark:focus {
   }
 }
 
+.navbar-laravel {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
 .counters {
   margin-right: 30px;
   font-size: 10px;
@@ -11126,7 +11131,7 @@ a.text-dark:focus {
   color: #5fbb7e;
 }
 
-.counters .status.answer-accepted {
+.counters .status.answered-accepted {
   background: #5fbb7e;
   color: #fff;
 }

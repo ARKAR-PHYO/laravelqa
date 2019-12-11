@@ -31,7 +31,7 @@ class RouteServiceProvider extends ServiceProvider
         //    }])->where('slug', $slug)->first() ?? abort(404);
 
         //*-- Ordering Answer count by decending order method-2 IN QUESTION MODEL --*
-           return question::with('answers.user')->where('slug', $slug)->first() ?? abort(404);
+           return question::with(['user', 'answers.user'])->where('slug', $slug)->first() ?? abort(404);
        });
 
         parent::boot();
